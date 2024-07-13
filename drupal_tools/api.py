@@ -61,19 +61,21 @@ class DrupalAPIClient:
         self.session = requests.Session()
         self.session.auth = self.auth  # Use auth for all requests in the session
 
-    def get_nids(self, uuids, group_name, field_name, operator="IN"):
+    def get_nids(self, uuids, field_name):
         """
         Retrieves node IDs (nids) for given UUIDs.
 
         Args:
             uuids (list of str): List of UUIDs to query for.
-            group_name (str): The filter group name.
             field_name (str): The field name to match UUIDs against.
-            operator (str, optional): The operator to use for matching. Default is "IN".
 
         Returns:
             dict: A dictionary mapping field item IDs to node IDs.
         """
+
+        group_name = "a-label"
+
+        operator = "IN"
 
         nids = {}
         for i in tqdm(range(0, len(uuids), 10)):
