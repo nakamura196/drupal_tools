@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "api.html",
+    "href": "api.html",
+    "title": "Drupal API Client",
+    "section": "",
+    "text": "source\n\nDrupalAPIClient\n\n DrupalAPIClient (origin, username, password)\n\n*A client for interacting with a Drupal JSON:API endpoint, providing functionalities to fetch node IDs (nids) based on UUIDs and to delete nodes.\nAttributes: origin (str): The base URL for the Drupal site. auth (HTTPBasicAuth): Authentication credentials for the site. session (requests.Session): A requests session for making API calls.*\n\nsource\n\n\nDrupalAPIClient.__init__\n\n DrupalAPIClient.__init__ (origin, username, password)\n\n*Initializes the DrupalAPIClient with the necessary credentials and session.\nArgs: origin (str): The base URL for the Drupal JSON:API. username (str): The username for authentication. password (str): The password for authentication.*\n\nsource\n\n\nDrupalAPIClient.get_nids\n\n DrupalAPIClient.get_nids (uuids, group_name, field_name, operator='IN')\n\n*Retrieves node IDs (nids) for given UUIDs.\nArgs: uuids (list of str): List of UUIDs to query for. group_name (str): The filter group name. field_name (str): The field name to match UUIDs against. operator (str, optional): The operator to use for matching. Default is “IN”.\nReturns: dict: A dictionary mapping field item IDs to node IDs.*\n\nsource\n\n\nDrupalAPIClient.delete\n\n DrupalAPIClient.delete (nid)\n\n*Deletes a node based on its node ID.\nArgs: nid (int): The node ID of the node to be deleted.\nReturns: requests.Response: The response from the API after attempting to delete the node.*\n\nsource\n\n\nDrupalAPIClient.delete_from_nids\n\n DrupalAPIClient.delete_from_nids (nids)\n\n*Attempts to delete nodes based on a list of node IDs.\nArgs: nids (dict): A dictionary mapping UUIDs to node IDs.\nReturns: list of dict: A list of dictionaries containing error information for each failed deletion.*\n\nsource\n\n\nDrupalAPIClient.load_credentials\n\n DrupalAPIClient.load_credentials (file_path)\n\n*Loads credentials from a .env file.\nArgs: file_path (str): The path to the .env file.\nReturns: tuple: A tuple containing the URL, username, and password.*"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Drupal Tools",
+    "section": "",
+    "text": "pip install drupal_tools"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "Drupal Tools",
+    "section": "How to use",
+    "text": "How to use\nSee the documentation for full details of the Omeka API Client.\nPlease create .env file in the root of your project with the following content:\nDRUPAL_URL=http://example.org/drupal\nDRUPAL_USERNAME=username\nDRUPAL_PASSWORD=password\nfrom drupal_tools.api import DrupalAPIClient\n\ndf = pd.read_csv(\"./uuids.csv\")\n\nuuids = []\n\nfor i, row in df.iterrows():\n    uuid = row[\"asset_uuid\"]\n\n    uuids.append(uuid)\n\nDRUPAL_URL, DRUPAL_USERNAME, DRUPAL_PASSWORD = DrupalAPIClient.load_credentials(\"../.env\")\n\ndrupal = DrupalAPIClient(DRUPAL_URL, DRUPAL_USERNAME, DRUPAL_PASSWORD)\n\nnids = drupal.get_nids(uuids, \"a-label\", \"field_item_id\", \"IN\")\n\nresults = drupal.delete_from_nids(nids)"
+  }
+]

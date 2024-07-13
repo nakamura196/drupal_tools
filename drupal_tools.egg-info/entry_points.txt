@@ -1,0 +1,6 @@
+[console_scripts]
+
+
+[nbdev]
+drupal_tools = drupal_tools._modidx:d
+

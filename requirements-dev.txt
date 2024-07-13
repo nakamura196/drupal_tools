@@ -1,0 +1,3 @@
+pandas
+nbdev
+-r requirements.txt
